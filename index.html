@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Industry
+	</title>
+	<style type="text/css">
+		/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.tabcontent {
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+	</style>
+	<script type="text/javascript">
+		function openTab(evt, tabName) {
+		  // Declare all variables
+		  var i, tabcontent, tablinks;
+
+		  // Get all elements with class="tabcontent" and hide them
+		  tabcontent = document.getElementsByClassName("tabcontent");
+		  for (i = 0; i < tabcontent.length; i++) {
+		    tabcontent[i].style.display = "none";
+		  }
+
+		  // Get all elements with class="tablinks" and remove the class "active"
+		  tablinks = document.getElementsByClassName("tablinks");
+		  for (i = 0; i < tablinks.length; i++) {
+		    tablinks[i].className = tablinks[i].className.replace(" active", "");
+		  }
+
+		  // Show the current tab, and add an "active" class to the button that opened the tab
+		  document.getElementById(tabName).style.display = "block";
+		  evt.currentTarget.className += " active";
+	}
+	document.getElementById("defaultOpen").click();
+	document.getElementById("defaultOpen").style.display = "block";
+	</script>
+</head>
+<body>
+	<div class="tab">
+		<h1>Industry</h1>
+	  <button class="tablinks" onclick="openTab(event, 'Department')" id="defaultOpen">Department</button>
+	  <button class="tablinks" onclick="openTab(event, 'Employee')">Employee</button>
+	</div>
+
+	<!-- Tab content -->
+	<div id="Department" class="tabcontent">
+	  <h3 align="center">Department</h3>
+	  <div>
+	  	<table border="1" align="center" width="50%">
+            <tr>
+                <th>Sr.No.</th>
+                <th>Dept Name</th>
+                <!-- <th>Action</th> -->
+            </tr>
+            <!-- PHP CODE TO FETCH DATA FROM ROWS-->
+            <?php 
+            foreach($dept as $val){
+            ?>
+                <tr>                   
+                    <td><?php echo $val['dep_id']; ?></td>
+                    <td><?php echo $val['dep_name']; ?></td>
+                </tr>
+            <?php
+            }
+            ?>
+        </table>
+	  </div>
+	</div>
+
+	<div id="Employee" class="tabcontent">
+	  <h3 align="center">Employee</h3>
+	  <p>
+	  	<div>	  		
+	  		<table border="1" align="center">
+            <tr>
+                <th>Sr.No.</th>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <!-- <th>Action</th> -->
+            </tr>
+            <!-- PHP CODE TO FETCH DATA FROM ROWS-->
+            <?php 
+            foreach($emp as $val){
+            ?>
+                <tr>                   
+                    <td><?php echo $val['emp_id']; ?></td>
+                    <td><?php echo $val['emp_name']; ?></td>
+                    <td><?php echo $val['dept_name']; ?></td>
+                    <td>
+                    <?php 
+		            foreach($val['phone'] as $ph){		            
+		            ?>
+                    <p><?php echo $ph; ?><p>
+                    <?php } ?>
+                    </td>
+                    <td><?php 
+		            foreach($val['address'] as $ad){		            
+		            ?>
+                    <p><?php echo $ad; ?><p>
+                    <?php } ?>
+                	</td>
+                </tr>
+            <?php
+            }
+            ?>
+        </table>
+	  	</div>
+	  </p>
+	</div>	
+</body>
+</html>

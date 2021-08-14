@@ -26,7 +26,11 @@ class Industry {
         $message ="Department {$data['DeptName']} Added Successfully";
         $msg['Status'] = "Success";        
         $msg['MessageInfo'] = $message;
-        echo json_encode($msg);
+        if($data['ws'] == '1'){
+            echo json_encode($msg);
+            return;
+        }
+        return json_encode($msg);
     }
     function insertEmployee($empData) {
        // http://localhost/index.php?action=addEmp&EmpName=res&DeptId=9&EmpPhone=523452&EmpAddress=afasdfadfa
@@ -41,7 +45,11 @@ class Industry {
         $message ="Employee {$empData['EmpName']} Added Successfully";
         $msg['Status'] = "Success";        
         $msg['MessageInfo'] = $message;
-        echo json_encode($msg);
+        if($empData['ws'] == '1'){
+            echo json_encode($msg);
+            return;
+        }
+        return json_encode($msg);
     }
     function updateEmployee($empData) {
        // http://localhost/index.php?action=editEmp&EmpName=resupdatechk&DeptId=9&EmpPhone=523452&EmpAddress=afasdfadfa&EmpId=4
@@ -64,10 +72,14 @@ class Industry {
         $message ="Employee {$empData['EmpName']} updated Successfully";
         $msg['Status'] = "Success";        
         $msg['MessageInfo'] = $message;
-        echo json_encode($msg);
+        if($empData['ws'] == '1'){
+            echo json_encode($msg);
+            return;
+        }
+        return json_encode($msg);
     }
     function listEmployee($data='') {
-       // http://localhost/index.php?action=listEmp&EmpName=resupdatechk&DeptId=9&EmpPhone=523452&EmpAddress=afasdfadfa&EmpId=4
+       // http://localhost/index.php?action=listEmp&EmpName=resupdatechk&ws=1
         
         $selemp_query = "SELECT `emp_id`,`emp_name`,d.dept_name as dept_name FROM employee e, department d WHERE e.dept_id = d.id";
         if(isset($data['DeptId']) && $data['DeptId'] !=''){
@@ -108,9 +120,38 @@ class Industry {
                  $i++;                         
             }
          } else {
-            printf('No record found.<br />');
+            $empl['error'] = "No Record Found";
+         }         
+         if(isset($data['ws']) && $data['ws'] == '1'){
+            echo json_encode($empl);
+            return;
          }
-        echo json_encode($empl);
+        return json_encode($empl);
+    }  
+     function listDepartment($data='') {
+       // http://localhost/index.php?action=listDept
+        $seldep_query = "SELECT * FROM `department`";
+        if(isset($data['DeptId']) && $data['DeptId'] !=''){
+            $seldep_query .= " AND id = '{$data['DeptId']}'";
+        }
+        $result = $this->db->query($seldep_query);
+        $dept =  array();
+        if ($result->num_rows > 0) {
+            $i=0;
+            while($row = $result->fetch_assoc()) {               
+
+                $dept[$i]['dep_id'] =$row["id"];
+                $dept[$i]['dep_name'] =$row["dept_name"];
+                $i++;                         
+            }
+         } else {
+             return json_encode("No Record Found");
+         }
+         if(isset($data['ws']) && $data['ws'] == '1'){
+            echo json_encode($dept);
+            return;
+         }
+        return json_encode($dept);
     }    
 }
 ?>
