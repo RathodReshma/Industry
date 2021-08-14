@@ -74,13 +74,25 @@
 	}
 	document.getElementById("defaultOpen").click();
 	document.getElementById("defaultOpen").style.display = "block";
+
+function showAdd() {
+  var x = document.getElementById("AddEmployee");
+  var y = document.getElementById("ListEmployee");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+  	y.style.display = "block";
+    x.style.display = "none";
+  }
+}
 	</script>
 </head>
 <body>
 	<div class="tab">
-		<h1>Industry</h1>
-	  <button class="tablinks" onclick="openTab(event, 'Department')" id="defaultOpen">Department</button>
-	  <button class="tablinks" onclick="openTab(event, 'Employee')">Employee</button>
+		<h1>Industry</h1>	  
+	  <button class="tablinks" onclick="openTab(event, 'Employee')" id="defaultOpen">Employee</button>
+	  <button class="tablinks" onclick="openTab(event, 'Department')">Department</button>
 	</div>
 
 	<!-- Tab content -->
@@ -108,9 +120,14 @@
 	  </div>
 	</div>
 
-	<div id="Employee" class="tabcontent">
-	  <h3 align="center">Employee</h3>
+	<div id="Employee" class="tabcontent" style="display:block">
+		<div id="ListEmployee">
+			<h3 align="center">Employee</h3>
 	  <p>
+	  	<div align="center">
+	  		<!-- <a href="index.php?action=addEmp" id="AddEmp">Add</a> -->
+	  		<button id="AddEmp" onclick="showAdd()">Add</button>
+	  	</div>
 	  	<div>	  		
 	  		<table border="1" align="center">
             <tr>
@@ -149,6 +166,17 @@
         </table>
 	  	</div>
 	  </p>
+		</div>
+		<div id="AddEmployee" style="display:none">
+			<h3 align="center">Employee</h3>
+	  <p>
+	  	<div align="center">
+	  		<!-- <a href="index.php?action=addEmp" id="AddEmp">Add</a> -->
+	  		<button id="AddEmp" onclick="showAdd()">List Employee</button>
+	  		<?php include_once("addEmp.html"); ?>
+	  	</div>
+	  </p>
+		</div>	  
 	</div>	
 </body>
 </html>

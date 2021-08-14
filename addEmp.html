@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employee</title>
+</head>
+<body>
+
+<div>
+<p>Add Employee</p>
+	<form name="addEmp" id="addEmp" method="POST" action="index.php?action=insertEmp">
+	    
+		<table>
+			<tr>
+				<td>
+					<label>Select Department
+						<select name="DeptId" id="DeptId" >
+						<?php
+						foreach($dept as $val){
+						?>
+							<option value="<?php echo $val['dep_id']; ?>"><?php echo $val['dep_name']; ?></option>
+						<?php
+						}
+						?>	      	
+						</select>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Enter Emp Name
+					<input name="EmpName" id="EmpName" type="text" />
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Enter Emp Phone
+					<input name="EmpPhone" id="EmpPhone" type="text" />
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Enter Emp address
+					<input name="EmpAddress" id="EmpAddress"  type="text" />
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit">Submit</button>
+				</td>
+			</tr>
+		</table>	    
+  </form>
+  </div>
+</body>
+</html>
